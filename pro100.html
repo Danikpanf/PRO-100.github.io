@@ -1,0 +1,1234 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="format-detection" content="telephone=no" />
+  <title>PRO‑100 — Мебель</title>
+  <style>
+    :root {
+      --bg-dark: radial-gradient(circle at 20% 20%, rgba(255,149,0,0.15), transparent 45%),
+                  radial-gradient(circle at 80% 0%, rgba(104,67,255,0.2), transparent 55%),
+                  #05070e;
+      --bg-light: radial-gradient(circle at 20% 20%, rgba(255,190,140,0.5), transparent 55%),
+                   radial-gradient(circle at 70% 0%, rgba(255,241,223,0.8), transparent 65%),
+                   #fffdf7;
+      --accent: linear-gradient(120deg, #ff7a00, #ffb347, #ffd76a);
+      --text-primary: #f5f5f7;
+      --text-muted: #cbd5ff;
+      --shadow-strong: 0 45px 85px rgba(0,0,0,0.55);
+      --shadow-medium: 0 25px 50px rgba(0,0,0,0.45);
+      --surface-main: rgba(255,255,255,0.02);
+      --surface-border: rgba(255,255,255,0.07);
+    }
+
+    * { box-sizing:border-box; -webkit-tap-highlight-color:transparent; }
+
+    body {
+      margin:0;
+      font-family:"Montserrat", Arial, sans-serif;
+      background:var(--bg-dark);
+      color:var(--text-primary);
+      min-height:100vh;
+      transition:background 0.5s ease, color 0.3s ease;
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+      touch-action:manipulation;
+    }
+
+    header {
+      position:sticky;
+      top:0;
+      z-index:20;
+      padding:18px 30px 24px;
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+      gap:12px;
+      background:rgba(5,7,14,0.85);
+      backdrop-filter:blur(14px);
+      border-bottom:1px solid rgba(255,255,255,0.08);
+      box-shadow:0 25px 40px rgba(0,0,0,0.4);
+    }
+
+    .logo-block {
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+      gap:6px;
+      text-align:center;
+    }
+
+    .logo {
+      font-size:36px;
+      font-weight:900;
+      letter-spacing:4px;
+      text-transform:uppercase;
+      color:#ffffff;
+      text-shadow:
+        0 4px 15px rgba(255,122,0,0.6),
+        0 1px 0 rgba(255,255,255,0.4),
+        0 12px 30px rgba(0,0,0,0.8);
+      transform:perspective(600px) rotateX(8deg);
+    }
+
+    .tagline {
+      font-size:14px;
+      letter-spacing:0.3em;
+      text-transform:uppercase;
+      color:var(--text-muted);
+    }
+
+    nav {
+      display:flex;
+      flex-wrap:wrap;
+      justify-content:center;
+      gap:18px;
+    }
+
+    nav button:not(.theme-toggle) {
+      background:none;
+      border:none;
+      color:var(--text-muted);
+      text-transform:uppercase;
+      letter-spacing:0.1em;
+      font-size:13px;
+      cursor:pointer;
+      transition:color 0.3s ease, text-shadow 0.3s ease;
+    }
+
+    nav button:not(.theme-toggle):hover {
+      color:#fff;
+      text-shadow:0 0 12px rgba(255,255,255,0.7);
+    }
+
+    .btn,
+    .ghost-btn {
+      border:none;
+      padding:12px 24px;
+      border-radius:999px;
+      text-transform:uppercase;
+      letter-spacing:0.15em;
+      font-weight:600;
+      cursor:pointer;
+      transition:transform 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
+      touch-action:manipulation;
+      -webkit-user-select:none;
+      user-select:none;
+      min-height:44px;
+      min-width:44px;
+    }
+
+    .btn {
+      background:var(--accent);
+      color:#1d1200;
+      box-shadow:0 15px 35px rgba(255,137,11,0.35);
+    }
+
+    .btn:hover {
+      transform:translateY(-3px) scale(1.02);
+      box-shadow:0 20px 45px rgba(255,137,11,0.45);
+    }
+
+    .ghost-btn {
+      background:rgba(255,255,255,0.08);
+      color:#fff;
+      border:1px solid rgba(255,255,255,0.2);
+    }
+
+    .ghost-btn:hover {
+      background:rgba(255,255,255,0.18);
+      transform:translateY(-2px);
+    }
+
+    .hero {
+      width:min(1200px, calc(100% - 40px));
+      margin:90px auto 60px;
+      display:grid;
+      grid-template-columns:minmax(0,1fr) minmax(0,1fr);
+      gap:40px;
+      align-items:center;
+      background:rgba(255,255,255,0.015);
+      border:1px solid rgba(255,255,255,0.08);
+      border-radius:28px;
+      padding:60px 50px;
+      box-shadow:var(--shadow-strong);
+      position:relative;
+      overflow:hidden;
+    }
+
+    .hero::before {
+      content:"";
+      position:absolute;
+      inset:0;
+      background:radial-gradient(circle at 10% 20%, rgba(255,255,255,0.08), transparent 50%);
+      pointer-events:none;
+    }
+
+    .hero-content {
+      position:relative;
+      z-index:2;
+      display:flex;
+      flex-direction:column;
+      gap:18px;
+    }
+
+    .eyebrow {
+      text-transform:uppercase;
+      letter-spacing:0.4em;
+      font-size:12px;
+      color:var(--text-muted);
+    }
+
+    .hero h1 {
+      margin:0;
+      font-size:46px;
+      line-height:1.1;
+    }
+
+    .hero p {
+      margin:0;
+      color:#dfe4ff;
+    }
+
+    .hero-actions {
+      display:flex;
+      gap:16px;
+      flex-wrap:wrap;
+    }
+
+    .hero-stats {
+      display:flex;
+      gap:20px;
+      flex-wrap:wrap;
+    }
+
+    .hero-stats div {
+      flex:1 1 120px;
+      background:rgba(255,255,255,0.03);
+      border:1px solid rgba(255,255,255,0.08);
+      border-radius:18px;
+      padding:16px;
+      text-align:center;
+      box-shadow:0 20px 45px rgba(0,0,0,0.35);
+    }
+
+    .hero-stats strong {
+      display:block;
+      font-size:24px;
+      color:#fff;
+    }
+
+    .hero-visual {
+      position:relative;
+      z-index:2;
+      perspective:1200px;
+    }
+
+    .hero img {
+      width:100%;
+      border-radius:22px;
+      object-fit:cover;
+      transform:rotateY(-8deg) rotateX(2deg);
+      box-shadow:0 30px 60px rgba(0,0,0,0.55);
+      border:1px solid rgba(255,255,255,0.08);
+    }
+
+    .about,
+    .projects,
+    .reviews {
+      width:min(1200px, calc(100% - 40px));
+      margin:70px auto;
+      background:var(--surface-main);
+      border:1px solid var(--surface-border);
+      border-radius:24px;
+      padding:40px;
+      box-shadow:0 35px 70px rgba(0,0,0,0.45);
+    }
+
+    .section-title {
+      font-size:30px;
+      margin:0 0 20px;
+      letter-spacing:0.08em;
+      text-transform:uppercase;
+      color:#fff;
+    }
+
+    .section-subtitle {
+      margin:-10px 0 30px;
+      color:#b8c5ff;
+      font-size:16px;
+      max-width:640px;
+    }
+
+    .project-grid {
+      display:grid;
+      grid-template-columns:repeat(auto-fill, minmax(280px,1fr));
+      gap:26px;
+    }
+
+    .project-card {
+      background:rgba(4,6,15,0.92);
+      border-radius:24px;
+      box-shadow:var(--shadow-medium);
+      border:1px solid rgba(255,255,255,0.05);
+      overflow:hidden;
+      display:flex;
+      flex-direction:column;
+      transition:transform 0.4s ease, box-shadow 0.4s ease;
+    }
+
+    .project-card:hover {
+      transform:translateY(-10px) rotateX(1deg);
+      box-shadow:0 35px 70px rgba(0,0,0,0.55);
+    }
+
+    .project-card img {
+      width:100%;
+      height:220px;
+      object-fit:cover;
+    }
+
+    .project-card .info {
+      padding:22px;
+      display:flex;
+      flex-direction:column;
+      gap:10px;
+    }
+
+    .project-card .info h3 {
+      margin:0;
+    }
+
+    .project-card .info p {
+      margin:0;
+      color:#c7d0ff;
+      line-height:1.5;
+      font-size:15px;
+    }
+
+    .project-meta {
+      display:flex;
+      justify-content:space-between;
+      flex-wrap:wrap;
+      gap:10px;
+      font-size:13px;
+      color:#9fb0ff;
+      text-transform:uppercase;
+      letter-spacing:0.15em;
+    }
+
+    .about {
+      display:grid;
+      grid-template-columns:repeat(auto-fit, minmax(260px,1fr));
+      gap:28px;
+      padding:50px;
+    }
+
+    .about-card {
+      background:rgba(255,255,255,0.02);
+      border:1px solid rgba(255,255,255,0.05);
+      border-radius:22px;
+      padding:22px;
+      box-shadow:0 25px 50px rgba(0,0,0,0.35);
+    }
+
+    .about-card h3 {
+      margin-top:0;
+      letter-spacing:0.08em;
+      text-transform:uppercase;
+      color:#fff;
+    }
+
+    .about-card p {
+      color:#cfd6ff;
+      line-height:1.6;
+    }
+
+    .reviews {
+      padding:50px;
+      display:flex;
+      flex-direction:column;
+      gap:30px;
+    }
+
+    .reviews-grid {
+      display:grid;
+      grid-template-columns:repeat(auto-fit, minmax(260px, 1fr));
+      gap:22px;
+    }
+
+    .review-card {
+      background:rgba(7,9,18,0.9);
+      border-radius:20px;
+      border:1px solid rgba(255,255,255,0.08);
+      padding:22px;
+      box-shadow:0 20px 45px rgba(0,0,0,0.4);
+      display:flex;
+      flex-direction:column;
+      gap:12px;
+    }
+
+    .review-head {
+      display:flex;
+      justify-content:space-between;
+      gap:10px;
+      align-items:flex-start;
+    }
+
+    .review-name {
+      font-weight:700;
+      letter-spacing:0.04em;
+    }
+
+    .review-rating {
+      color:#ffc36b;
+      font-size:18px;
+    }
+
+    .review-text {
+      color:#dfe4ff;
+      line-height:1.6;
+      margin:0;
+      flex:1;
+    }
+
+    .review-date {
+      font-size:13px;
+      color:#8f9bd0;
+    }
+
+    .metrics {
+      width:min(1200px, calc(100% - 40px));
+      margin:40px auto 80px;
+      display:grid;
+      grid-template-columns:repeat(auto-fit, minmax(200px, 1fr));
+      gap:24px;
+    }
+
+    .metric {
+      background:rgba(255,255,255,0.04);
+      border:1px solid rgba(255,255,255,0.08);
+      border-radius:24px;
+      text-align:center;
+      padding:30px 20px;
+      box-shadow:0 20px 45px rgba(0,0,0,0.35);
+    }
+
+    .metric strong {
+      display:block;
+      font-size:34px;
+      color:#fff;
+      margin-bottom:8px;
+    }
+
+    .metric span {
+      text-transform:uppercase;
+      letter-spacing:0.2em;
+      font-size:12px;
+      color:#b7c3ff;
+    }
+
+    .contact-fab {
+      position:fixed;
+      bottom:30px;
+      right:30px;
+      z-index:50;
+      display:flex;
+      flex-direction:column;
+      align-items:flex-end;
+      gap:12px;
+    }
+
+    .fab-main {
+      width:58px;
+      height:58px;
+      border-radius:50%;
+      border:none;
+      background:var(--accent);
+      color:#1d1200;
+      font-size:26px;
+      font-weight:700;
+      cursor:pointer;
+      box-shadow:0 20px 35px rgba(255,137,11,0.45);
+      transition:transform 0.3s ease, box-shadow 0.3s ease;
+      touch-action:manipulation;
+      -webkit-user-select:none;
+      user-select:none;
+      -webkit-tap-highlight-color:transparent;
+    }
+
+    .fab-main:hover,
+    .fab-main:active { transform:translateY(-3px) scale(0.95); }
+
+    .fab-menu {
+      background:rgba(5,7,14,0.92);
+      border:1px solid rgba(255,255,255,0.08);
+      border-radius:18px;
+      box-shadow:0 25px 55px rgba(0,0,0,0.5);
+      padding:10px;
+      display:none;
+      min-width:180px;
+    }
+
+    .fab-menu.open { display:flex; flex-direction:column; gap:6px; }
+
+    .fab-item {
+      display:flex;
+      align-items:center;
+      gap:10px;
+      width:100%;
+      border:none;
+      background:rgba(255,255,255,0.03);
+      border-radius:12px;
+      padding:12px 14px;
+      color:#e0e5ff;
+      cursor:pointer;
+      transition:background 0.2s ease;
+      touch-action:manipulation;
+      -webkit-user-select:none;
+      user-select:none;
+      min-height:44px;
+      -webkit-tap-highlight-color:transparent;
+    }
+
+    .fab-item:hover,
+    .fab-item:active { background:rgba(255,255,255,0.12); }
+
+    .fab-icon {
+      width:26px;
+      height:26px;
+      border-radius:50%;
+      display:grid;
+      place-items:center;
+      font-size:14px;
+      background:rgba(255,255,255,0.15);
+      color:#05070e;
+      font-weight:700;
+    }
+
+    .theme-toggle {
+      width:44px;
+      height:44px;
+      border-radius:50%;
+      border:1px solid rgba(255,255,255,0.25);
+      background:rgba(255,255,255,0.08);
+      color:#fff7ea;
+      font-size:18px;
+      cursor:pointer;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      margin-left:8px;
+      transition:transform 0.3s ease, background 0.3s ease, border 0.3s ease;
+    }
+
+    .theme-toggle:hover {
+      transform:translateY(-2px);
+      background:rgba(255,255,255,0.2);
+    }
+
+    body.theme-light {
+      background:var(--bg-light);
+      color:#1f1f25;
+      --text-muted: #6b6f7c;
+    }
+
+    body.theme-light header {
+      background:rgba(255,255,255,0.95);
+      border-bottom:1px solid rgba(0,0,0,0.08);
+      box-shadow:0 20px 40px rgba(255,170,73,0.15);
+    }
+
+    body.theme-light .logo {
+      color:#ff7a00;
+      text-shadow:0 2px 6px rgba(255,122,0,0.35);
+    }
+
+    body.theme-light nav button:not(.theme-toggle) {
+      color:#6d6f78;
+      text-shadow:none;
+    }
+
+    body.theme-light nav button:not(.theme-toggle):hover {
+      color:#121217;
+    }
+
+    body.theme-light .ghost-btn {
+      background:rgba(255,255,255,0.7);
+      border:1px solid rgba(255,158,74,0.4);
+      color:#a84600;
+    }
+
+    body.theme-light .btn {
+      box-shadow:0 18px 35px rgba(255,153,66,0.35);
+      color:#4a2200;
+    }
+
+    body.theme-light .hero {
+      background:rgba(255,255,255,0.92);
+      border:1px solid rgba(0,0,0,0.05);
+      box-shadow:0 35px 65px rgba(255,184,105,0.2);
+    }
+
+    body.theme-light .hero::before {
+      background:radial-gradient(circle at 10% 20%, rgba(255,168,92,0.2), transparent 60%);
+    }
+
+    body.theme-light .hero p {
+      color:#4c4f5c;
+    }
+
+    body.theme-light .hero-stats div {
+      background:#fff5ea;
+      border:1px solid rgba(255,152,68,0.35);
+      box-shadow:0 18px 40px rgba(255,193,134,0.35);
+    }
+
+    body.theme-light .hero-stats strong {
+      color:#f25c05;
+    }
+
+    body.theme-light .hero-visual img {
+      border:1px solid rgba(0,0,0,0.08);
+      box-shadow:0 25px 55px rgba(51,30,0,0.18);
+    }
+
+    body.theme-light .section-title {
+      color:#1f1f23;
+    }
+
+    body.theme-light .section-subtitle {
+      color:#6c6060;
+    }
+
+    body.theme-light .about,
+    body.theme-light .projects,
+    body.theme-light .reviews {
+      background:#fffaf4;
+      border:1px solid rgba(0,0,0,0.05);
+      box-shadow:0 30px 60px rgba(255,181,115,0.2);
+    }
+
+    body.theme-light .about-card {
+      background:#fff;
+      border:1px solid rgba(255,162,80,0.3);
+    }
+
+    body.theme-light .about-card h3 {
+      color:#d35400;
+    }
+
+    body.theme-light .about-card p {
+      color:#4c4031;
+    }
+
+    body.theme-light .review-card {
+      background:#fff;
+      border:1px solid rgba(255,159,77,0.25);
+      box-shadow:0 25px 45px rgba(255,177,109,0.25);
+    }
+
+    body.theme-light .review-text {
+      color:#4e443b;
+    }
+
+    body.theme-light .review-date {
+      color:#b07232;
+    }
+
+
+    body.theme-light .project-card {
+      background:#fff;
+      border:1px solid rgba(0,0,0,0.05);
+      box-shadow:0 25px 50px rgba(255,179,113,0.25);
+    }
+
+    body.theme-light .project-card .info p {
+      color:#4f4f5a;
+    }
+
+    body.theme-light .project-meta {
+      color:#b15800;
+    }
+
+    body.theme-light .metric {
+      background:#fff3e1;
+      border:1px solid rgba(255,176,82,0.4);
+      box-shadow:0 20px 40px rgba(255,195,134,0.3);
+    }
+
+    body.theme-light .metric strong {
+      color:#ce4f00;
+    }
+
+    body.theme-light .metric span {
+      color:#a86000;
+    }
+
+    body.theme-light .contact-fab .fab-menu {
+      background:#fff;
+      border:1px solid rgba(0,0,0,0.08);
+      box-shadow:0 20px 35px rgba(255,189,123,0.35);
+    }
+
+    body.theme-light .fab-item {
+      background:rgba(255,123,0,0.08);
+      color:#5a4332;
+    }
+
+    body.theme-light .fab-item:hover {
+      background:rgba(255,123,0,0.18);
+    }
+
+    body.theme-light .fab-icon {
+      background:rgba(255,123,0,0.18);
+      color:#a64500;
+    }
+
+    body.theme-light .theme-toggle {
+      border:1px solid rgba(255,136,0,0.4);
+      background:rgba(255,255,255,0.8);
+      color:#a04200;
+    }
+
+    @media(min-width:1400px){
+      .hero,
+      .about,
+      .projects,
+      .metrics {
+        width:min(1300px, calc(100% - 120px));
+      }
+    }
+
+    @media(max-width:1024px){
+      header { padding:16px 24px 22px; }
+      .hero { margin:70px auto 50px; padding:50px 40px; }
+      .hero h1 { font-size:40px; }
+      .about,
+      .projects,
+      .reviews { padding:32px; }
+    }
+
+    @media(max-width:768px){
+      header { padding:14px 18px 20px; }
+      .logo { font-size:30px; letter-spacing:3px; }
+      .hero { grid-template-columns:1fr; padding:36px 26px; margin:60px auto 40px; }
+      .hero-actions { flex-direction:column; }
+      .hero-visual img { transform:none; }
+      .about { grid-template-columns:1fr; padding:30px; }
+      .project-card img { height:190px; }
+      .metrics { grid-template-columns:repeat(auto-fit, minmax(200px,1fr)); }
+    }
+
+    @media(max-width:560px){
+      body { font-size:15px; }
+      .logo { font-size:26px; letter-spacing:2px; }
+      .hero h1 { font-size:32px; }
+      .hero-stats { flex-direction:column; }
+      .hero { padding:28px 20px; }
+      .about,
+      .projects,
+      .reviews { padding:24px; }
+      .metrics { grid-template-columns:repeat(auto-fit, minmax(160px,1fr)); margin:30px auto 60px; }
+      .contact-fab { bottom:18px; right:18px; }
+      .fab-main { width:56px; height:56px; font-size:24px; }
+      .fab-menu { min-width:160px; }
+    }
+
+    @media(max-width:400px){
+      .contact-fab { bottom:12px; right:12px; }
+      .fab-main { width:52px; height:52px; font-size:22px; }
+      .fab-menu { min-width:140px; padding:8px; }
+      .fab-item { padding:10px 12px; font-size:14px; }
+    }
+
+    @media(pointer:coarse){
+      .btn:hover,
+      .ghost-btn:hover,
+      .fab-main:hover,
+      .fab-item:hover {
+        transform:none;
+      }
+      
+      .btn:active,
+      .ghost-btn:active {
+        transform:scale(0.97);
+      }
+    }
+  </style>
+</head>
+<body class="theme-dark">
+
+<header>
+  <div class="logo-block">
+  <div class="logo">PRO‑100</div>
+    <span class="tagline">Мастерская современной мебели</span>
+  </div>
+  <nav>
+    <button onclick="scrollToId('projects')">Наши проекты</button>
+    <button class="theme-toggle" type="button" onclick="toggleTheme()" aria-label="Сменить тему">
+      <span id="theme-icon">☀︎</span>
+    </button>
+  </nav>
+</header>
+
+<section class="hero">
+  <div class="hero-content">
+    <span class="eyebrow">Коллекция 2025</span>
+    <h1>Современная мебель PRO‑100</h1>
+    <p>Создаём мебель премиального уровня с доставкой и установкой по всей России. Эксклюзивные материалы, точность до миллиметра и разумные сроки.</p>
+    <div class="hero-actions">
+      <button class="btn" onclick="scrollToId('projects')">Наши проекты</button>
+      <button class="ghost-btn" onclick="toggleFab(true)">Контакты</button>
+    </div>
+    <div class="hero-stats">
+      <div>
+        <strong>250+</strong>
+        <span>реализованных проектов</span>
+      </div>
+      <div>
+        <strong>12 лет</strong>
+        <span>опыта в мебельном дизайне</span>
+      </div>
+  <div>
+        <strong>48 часов</strong>
+        <span>на подготовку 3D‑визуализации</span>
+      </div>
+    </div>
+  </div>
+  <div class="hero-visual">
+    <img src="https://images.unsplash.com/photo-1582582494709-2f4b2b20baf8?auto=format&fit=crop&w=1000&q=60" alt="Интерьер с мебелью PRO-100" />
+  </div>
+</section>
+
+<section id="about" class="about">
+  <div class="about-card">
+    <h3>О компании</h3>
+    <p>PRO‑100 — это команда архитекторов, дизайнеров и мастеров, которая уже двенадцать лет создаёт мебель под ключ. Мы берём на себя весь цикл: от экспертизы планировки и 3D‑визуализации до производства, логистики и монтажа.</p>
+  </div>
+  <div class="about-card">
+    <h3>Подход</h3>
+    <p>Каждый проект начинается с интервью и выезда на объект. Мы соединяем технологичное производство, натуральные материалы и bespoke‑подход, чтобы вписать мебель в стиль жизни клиента. Сроки и бюджет фиксируются в договоре.</p>
+  </div>
+  <div class="about-card">
+    <h3>Сервисы</h3>
+    <p>Индивидуальные кухни, гостиные и кабинеты, встроенные системы хранения, освещение, soft‑furnishing и пост‑сервис. Доставляем по всей России и сопровождаем проект до идеального результата.</p>
+  </div>
+</section>
+
+<section id="projects" class="projects">
+  <h2 class="section-title">Наши проекты</h2>
+  <div id="project-grid" class="project-grid"></div>
+</section>
+
+<section id="reviews" class="reviews">
+  <div>
+    <h2 class="section-title">Отзывы</h2>
+    <p class="section-subtitle">Свежие впечатления клиентов о материалах, сроках и сервисе PRO‑100.</p>
+  </div>
+  <div id="reviews-grid" class="reviews-grid"></div>
+</section>
+
+<section class="metrics" id="metrics-section">
+  <div class="metric">
+    <strong data-target="820" data-suffix="+">0</strong>
+    <span>отзывов</span>
+  </div>
+  <div class="metric">
+    <strong data-target="540">0</strong>
+    <span>готовых заказов</span>
+  </div>
+  <div class="metric">
+    <strong data-target="12" data-suffix=" лет">0</strong>
+    <span>на рынке</span>
+  </div>
+</section>
+
+<div class="contact-fab" id="contact-fab">
+  <div class="fab-menu" id="fab-menu">
+    <button class="fab-item" onclick="copyHandle('@night_125rev', 'Telegram')">
+      <span class="fab-icon">TG</span>
+      <span>Telegram</span>
+    </button>
+    <button class="fab-item" onclick="copyHandle('@night_125rev', 'Instagram')">
+      <span class="fab-icon">IG</span>
+      <span>Instagram</span>
+    </button>
+  </div>
+  <button class="fab-main" onclick="toggleFab()" aria-label="Контакты">
+    ✦
+  </button>
+</div>
+
+<script>
+// PROJECTS
+const projects = [
+  {
+    id:1,
+    title:"Лофт‑квартира в центре",
+    location:"Москва",
+    area:"86 м²",
+    year:"2025",
+    desc:"Комплект кухни, гостиной и кабинета в индустриальной стилистике: фактурное дерево, металлические вставки и умная подсветка.",
+    img:"https://images.unsplash.com/photo-1505691938895-1758d7feb511?auto=format&fit=crop&w=1000&q=60"
+  },
+  {
+    id:2,
+    title:"Загородный дом PRO Nordic",
+    location:"Санкт‑Петербург",
+    area:"220 м²",
+    year:"2024",
+    desc:"Зона гостиной и кухни‑столовой с монолитным островом, тонкими фасадами и интегрированными системами хранения.",
+    img:"https://images.unsplash.com/photo-1600573472592-401b489a3cdc?auto=format&fit=crop&w=1000&q=60"
+  },
+  {
+    id:3,
+    title:"Квартира Business Class",
+    location:"Екатеринбург",
+    area:"104 м²",
+    year:"2024",
+    desc:"Минималистичная спальня и гардеробные модули с подсветкой, велюровыми панелями и скрытой фурнитурой.",
+    img:"https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?auto=format&fit=crop&w=1000&q=60"
+  },
+  {
+    id:4,
+    title:"Пентхаус Skyline",
+    location:"Сочи",
+    area:"156 м²",
+    year:"2023",
+    desc:"Авторская гостиная с панорамой моря, барной зоной и мебелью из ореха с латунными акцентами.",
+    img:"https://images.unsplash.com/photo-1505693314120-0d443867891c?auto=format&fit=crop&w=1000&q=60"
+  }
+];
+
+function renderProjects(){
+  const grid = document.getElementById("project-grid");
+  grid.innerHTML = "";
+  projects.forEach(p=>{
+      const el = document.createElement("div");
+    el.className = "project-card";
+      el.innerHTML = `
+      <img src="${p.img}" alt="${p.title}" />
+        <div class="info">
+          <h3>${p.title}</h3>
+        <p>${p.desc}</p>
+        <div class="project-meta">
+          <span>${p.location}</span>
+          <span>${p.area}</span>
+          <span>${p.year}</span>
+        </div>
+        </div>`;
+      grid.appendChild(el);
+    });
+}
+renderProjects();
+
+// REVIEWS
+const reviews = [
+  {
+    id:101,
+    name:"Анна Соколова",
+    rating:5,
+    text:"Команда помогла сделать сложную перепланировку кухни-столовой и уложилась в дедлайн до праздников. Качество фасадов и сборка — на высоте.",
+    date:"2024-11-15T10:00:00Z"
+  },
+  {
+    id:102,
+    name:"Михаил Чернов",
+    rating:4,
+    text:"Заказывали встроенные шкафы и кабинет. Понравилась детализация чертежей и постоянная коммуникация. Ждём немного быстрее доставку комплектующих.",
+    date:"2024-09-02T12:00:00Z"
+  },
+  {
+    id:103,
+    name:"Екатерина Ли",
+    rating:5,
+    text:"Редизаин гостиной с подсветкой и текстилем превзошёл ожидания. Спасибо за терпение к правкам и бережную установку.",
+    date:"2025-01-04T08:00:00Z"
+  }
+];
+
+function formatDate(dateStr){
+  try {
+    return new Intl.DateTimeFormat('ru-RU', { day:'2-digit', month:'long', year:'numeric' }).format(new Date(dateStr));
+  } catch(e){
+    return "";
+  }
+}
+
+function renderReviews(){
+  const grid = document.getElementById("reviews-grid");
+  if(!grid) return;
+  grid.innerHTML = "";
+  reviews.slice().reverse().forEach(r=>{
+    const card = document.createElement("div");
+    card.className = "review-card";
+    card.innerHTML = `
+      <div class="review-head">
+        <div>
+          <div class="review-name">${r.name}</div>
+          <div class="review-date">${formatDate(r.date)}</div>
+        </div>
+        <div class="review-rating">${"★".repeat(r.rating)}${"☆".repeat(5-r.rating)}</div>
+      </div>
+      <p class="review-text">${r.text}</p>
+    `;
+    grid.appendChild(card);
+  });
+}
+renderReviews();
+
+// THEME TOGGLE
+const THEME_KEY = "pro100-theme";
+
+function applyTheme(theme){
+  document.body.classList.toggle("theme-light", theme === "light");
+  document.body.classList.toggle("theme-dark", theme !== "light");
+  const icon = document.getElementById("theme-icon");
+  if(icon) icon.textContent = theme === "light" ? "☾" : "☀︎";
+}
+
+function toggleTheme(){
+  const next = document.body.classList.contains("theme-light") ? "dark" : "light";
+  applyTheme(next);
+  try {
+    localStorage.setItem(THEME_KEY, next);
+  } catch(e) {}
+}
+
+(function initTheme(){
+  let saved = null;
+  try {
+    saved = localStorage.getItem(THEME_KEY);
+  } catch(e) {}
+  const prefersLight = window.matchMedia && window.matchMedia("(prefers-color-scheme: light)").matches;
+  applyTheme(saved ? saved : (prefersLight ? "light" : "dark"));
+})();
+
+// SCROLL
+function scrollToId(id){
+  const element = document.getElementById(id);
+  if(!element) return;
+  
+  const supportsSmooth = "scrollBehavior" in document.documentElement.style;
+  
+  if(supportsSmooth){
+    element.scrollIntoView({behavior:'smooth', block:'start'});
+  } else {
+    const start = window.pageYOffset || document.documentElement.scrollTop;
+    const target = element.getBoundingClientRect().top + start - 80;
+    const distance = target - start;
+    const duration = 600;
+    let startTime = null;
+    
+    function animateScroll(currentTime){
+      if(startTime === null) startTime = currentTime;
+      const timeElapsed = currentTime - startTime;
+      const progress = Math.min(timeElapsed / duration, 1);
+      
+      const ease = progress < 0.5 
+        ? 2 * progress * progress 
+        : 1 - Math.pow(-2 * progress + 2, 2) / 2;
+      
+      window.scrollTo(0, start + distance * ease);
+      
+      if(progress < 1){
+        requestAnimationFrame(animateScroll);
+      }
+    }
+    
+    requestAnimationFrame(animateScroll);
+  }
+}
+
+// CONTACT FAB
+function toggleFab(forceOpen=false){
+  const menu = document.getElementById("fab-menu");
+  const shouldOpen = forceOpen ? true : !menu.classList.contains("open");
+  menu.classList.toggle("open", shouldOpen);
+  
+  if(shouldOpen){
+    setTimeout(() => {
+      document.addEventListener("click", closeFabOnOutsideClick, true);
+      document.addEventListener("touchend", closeFabOnOutsideClick, true);
+    }, 10);
+  } else {
+    document.removeEventListener("click", closeFabOnOutsideClick, true);
+    document.removeEventListener("touchend", closeFabOnOutsideClick, true);
+  }
+}
+
+function closeFabOnOutsideClick(e){
+  const fab = document.getElementById("contact-fab");
+  if(fab && !fab.contains(e.target)){
+    toggleFab(false);
+  }
+}
+
+function copyHandle(handle, label){
+  const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+  const isAndroid = /Android/.test(navigator.userAgent);
+  
+  const notify = ()=>{
+    const msg = `${label}: ${handle} скопирован`;
+    if(isIOS || isAndroid){
+      alert(msg);
+    } else {
+      alert(msg);
+    }
+  };
+
+  const copyToClipboard = async (text) => {
+    if(navigator.clipboard && window.isSecureContext){
+      try {
+        await navigator.clipboard.writeText(text);
+        notify();
+        return true;
+      } catch(err){
+        return false;
+      }
+    }
+    return false;
+  };
+
+  const fallbackCopy = (text, callback) => {
+    const temp = document.createElement("textarea");
+    temp.value = text;
+    temp.style.position = "fixed";
+    temp.style.left = "-9999px";
+    temp.style.top = "0";
+    temp.setAttribute("readonly", "");
+    document.body.appendChild(temp);
+    
+    if(isIOS){
+      temp.contentEditable = true;
+      temp.readOnly = false;
+      const range = document.createRange();
+      range.selectNodeContents(temp);
+      const sel = window.getSelection();
+      sel.removeAllRanges();
+      sel.addRange(range);
+      temp.setSelectionRange(0, 999999);
+    } else {
+      temp.select();
+      temp.setSelectionRange(0, 999999);
+    }
+    
+    try {
+      const successful = document.execCommand("copy");
+      if(successful){
+        callback();
+      } else {
+        alert("Не удалось скопировать. Скопируйте вручную: " + text);
+      }
+    } catch(e){
+      alert("Не удалось скопировать. Скопируйте вручную: " + text);
+    } finally {
+      document.body.removeChild(temp);
+    }
+  };
+
+  copyToClipboard(handle).then(success => {
+    if(!success){
+      fallbackCopy(handle, notify);
+    }
+  }).catch(() => {
+    fallbackCopy(handle, notify);
+  });
+}
+
+// COUNTER ANIMATION
+function animateCounter(element, target, suffix = ""){
+  const duration = 2000;
+  const start = 0;
+  const startTime = performance.now();
+  const isDecimal = target % 1 !== 0;
+  
+  function update(currentTime){
+    const elapsed = currentTime - startTime;
+    const progress = Math.min(elapsed / duration, 1);
+    
+    const easeOutQuart = 1 - Math.pow(1 - progress, 4);
+    const current = Math.floor(start + (target - start) * easeOutQuart);
+    
+    if(isDecimal){
+      element.textContent = (current + (target - current) * (progress % 0.1)).toFixed(1) + suffix;
+    } else {
+      element.textContent = current + suffix;
+    }
+    
+    if(progress < 1){
+      requestAnimationFrame(update);
+    } else {
+      element.textContent = target + suffix;
+    }
+  }
+  
+  requestAnimationFrame(update);
+}
+
+let metricsAnimated = false;
+
+function initMetricsAnimation(){
+  if(metricsAnimated) return;
+  
+  const section = document.getElementById("metrics-section");
+  if(!section) return;
+  
+  const counters = section.querySelectorAll(".metric strong[data-target]");
+  
+  counters.forEach(counter => {
+    const target = parseInt(counter.getAttribute("data-target"), 10);
+    const suffix = counter.getAttribute("data-suffix") || "";
+    counter.textContent = "0" + suffix;
+    animateCounter(counter, target, suffix);
+  });
+  
+  metricsAnimated = true;
+}
+
+// Intersection Observer для запуска анимации при появлении в viewport
+if("IntersectionObserver" in window){
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if(entry.isIntersecting && !metricsAnimated){
+        initMetricsAnimation();
+        observer.disconnect();
+      }
+    });
+  }, {
+    threshold: 0.3,
+    rootMargin: "0px"
+  });
+  
+  const metricsSection = document.getElementById("metrics-section");
+  if(metricsSection){
+    observer.observe(metricsSection);
+  }
+} else {
+  // Fallback для старых браузеров
+  window.addEventListener("scroll", () => {
+    const section = document.getElementById("metrics-section");
+    if(section){
+      const rect = section.getBoundingClientRect();
+      if(rect.top < window.innerHeight && rect.bottom > 0 && !metricsAnimated){
+        initMetricsAnimation();
+      }
+    }
+  });
+  
+  // Проверка при загрузке, если секция уже видна
+  if(document.getElementById("metrics-section")){
+    const rect = document.getElementById("metrics-section").getBoundingClientRect();
+    if(rect.top < window.innerHeight){
+      initMetricsAnimation();
+    }
+  }
+}
+</script>
+
+</body>
+</html>
